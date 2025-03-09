@@ -72,8 +72,8 @@ socket.on("receive-location", (data) => {
     console.log(`Received location from ${email}: Latitude ${lat}, Longitude ${long}`);
 
     // Update the location details in the frontend (latitude, longitude, location)
-    latitudeElement.textContent = lat.toFixed(6); // Limiting decimal places for readability
-    longitudeElement.textContent = long.toFixed(6); // Limiting decimal places for readability
+    latitudeElement.textContent = lat; // Limiting decimal places for readability
+    longitudeElement.textContent = long; // Limiting decimal places for readability
     
 
     // Update the marker on the map or add a new marker
