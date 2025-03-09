@@ -27,13 +27,13 @@
             top: 20px;
             left: 20px;
             z-index: 2;
-            background: rgba(20, 30, 50, 0.9);
+            background: rgba(20, 30, 50, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             color: white;
-            width: clamp(250px, 20vw, 350px); /* Scales between 250px and 350px based on viewport */
+            width: clamp(300px, 25vw, 400px); /* Scales between 300px and 400px */
             animation: slideIn 0.5s ease-out;
         }
     
@@ -47,7 +47,7 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: clamp(1.2rem, 2vw, 1.5rem); /* Scales with viewport */
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: #ffffff;
             text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
@@ -58,7 +58,7 @@
         }
     
         .user-info p, .location-details p {
-            font-size: clamp(0.8rem, 1.5vw, 0.9rem); /* Scales text */
+            font-size: clamp(0.9rem, 1.5vw, 1rem); /* Scales text */
             color: #d1d1d1;
             margin: 0.5rem 0;
         }
@@ -67,28 +67,65 @@
             color: #60a5fa;
         }
     
-        /* Logout Button */
-        .logout-btn {
-            background: #dc3545;
-            border-radius: 8px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            text-align: center;
-            justify-content: center;
+        /* Input Fields */
+        .input-fields {
+            margin-bottom: 1.5rem;
         }
     
-        .logout-btn:hover {
-            background: #b02a37;
+        .input-fields input {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+    
+        .input-fields input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+        }
+    
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border: none;
+            border-radius: 6px;
+            padding: 10px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+    
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+    
+        .btn-stop {
+            background: linear-gradient(90deg, #dc3545, #b02a37);
+            border: none;
+            border-radius: 6px;
+            padding: 10px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: white;
+        }
+    
+        .btn-stop:hover {
+            background: linear-gradient(90deg, #b02a37, #dc3545);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
         }
     
         /* Camera Button */
@@ -148,72 +185,19 @@
             margin: 0.5rem 0;
             text-align: center;
         }
-    
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .control-panel {
-                top: 10px;
-                left: 10px;
-                padding: 1rem;
-                width: clamp(200px, 30vw, 300px);
-            }
-    
-            .camera-btn {
-                top: 10px;
-                right: 10px;
-            }
-    
-            .bottom-sheet {
-                padding: 1rem;
-            }
-        }
-    
-        @media (max-width: 576px) {
-            .control-panel {
-                top: 5px;
-                left: 5px;
-                padding: 0.8rem;
-                width: clamp(180px, 40vw, 250px);
-            }
-    
-            .camera-btn {
-                top: 5px;
-                right: 5px;
-            }
-    
-            .bottom-sheet {
-                padding: 0.8rem;
-            }
-        }
-    
-        /* Adjustments for larger screens */
-        @media (min-width: 1200px) {
-            .control-panel {
-                top: 30px;
-                left: 30px;
-                padding: 2rem;
-            }
-    
-            .camera-btn {
-                top: 30px;
-                right: 30px;
-            }
-    
-            .bottom-sheet video {
-                max-width: 800px; /* Slightly larger video on big screens */
-            }
-        }
     </style>
 </head>
 <body>
 
     <!-- Floating Control Panel -->
     <div class="control-panel">
-        <h1>Real-Time Location Tracker</h1>
+        <h1>Live Video Location Tracker</h1>
         
         <!-- User Info Section -->
         <div class="user-info">
-            <p><strong>Email:</strong> <span id="user-email"><%= user.email %></span></p>
+            <p><strong>Email:</strong> <span id="user-email"></span></p>
+            <p><strong>Token:</strong> <span id="user-token"></span></p>
+            <p><strong>Django Server URL:</strong> <span id="user-django-url"></span></p>
         </div>
 
         <!-- Location Details Section -->
@@ -222,8 +206,16 @@
             <p><strong>Longitude:</strong> <span id="longitude">Loading...</span></p>
         </div>
 
+        <!-- Input Fields for Email, Token, and Django Server URL -->
+        <div class="input-fields">
+            <input type="email" id="email" class="form-control" placeholder="Email" required>
+            <input type="text" id="token" class="form-control" placeholder="Token" required>
+            <input type="url" id="djangoUrl" class="form-control" placeholder="Django Server URL" required>
+            <button onclick="submitDetails()" class="btn btn-primary">Start Sending</button>
+        </div>
+
         <!-- Logout Button -->
-        <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <button onclick="window.location.reload()" class="btn btn-stop">Stop Sending</button>
     </div>
 
     <!-- Camera Button -->
@@ -241,13 +233,35 @@
     <div id="map"></div>
 
     <script>
-        const userEmail = "<%= user.email %>";
-        const token = "<%= token %>";
-        const djangoServerURL = "<%= djangoServerURL %>";
+       let socket;
+        let userEmail, token, djangoServerURL;
+        let mediaStream;
 
-        const streamId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        const streamUrl = `${window.location.origin}/stream/${streamId}`;
-        document.getElementById('streamUrl').textContent = streamUrl;
+        // Function to submit user details
+        function submitDetails() {
+            userEmail = document.getElementById("email").value;
+            token = document.getElementById("token").value;
+            djangoServerURL = document.getElementById("djangoUrl").value;
+
+            // Store the values in session storage
+            sessionStorage.setItem("email", userEmail);
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("djangoUrl", djangoServerURL);
+
+            // Display the values in the sidebar
+            document.getElementById('user-email').textContent = userEmail;
+            document.getElementById('user-token').textContent = token;
+            document.getElementById('user-django-url').textContent = djangoServerURL;
+
+            // Generate streamId and streamUrl
+            streamId = `video`;
+            streamUrl = `${window.location.origin}/stream/${streamId}`;
+
+            // Display the stream URL below the video
+            document.getElementById('streamUrl').textContent = streamUrl;
+            // Initialize socket connection after submitting details
+            initializeSocket();
+        }
 
         // Function to toggle the bottom sheet
         function toggleBottomSheet() {

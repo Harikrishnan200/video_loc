@@ -1,4 +1,4 @@
-const socket = io();
+
 const deviceId = navigator.userAgent; // Use user agent as a unique identifier for each device
 
 // References to the DOM elements where we will display the latitude and longitude
@@ -7,6 +7,8 @@ const longitudeElement = document.getElementById('longitude');
 const locationElement = document.getElementById('location');
 
 // Emit the device ID upon connection
+function initializeSocket() {   
+socket = io();
 socket.on("connect", () => {
     console.log(`Connected with email: ${userEmail}`);
     socket.emit("register_device", { email: userEmail });
@@ -18,7 +20,7 @@ if (navigator.geolocation) {
     let lastEmitTime = 0; // To track the last emission time
     let latestPosition = null; // To store the latest position received
 
-    navigator.geolocation.watchPosition(
+    watchId = navigator.geolocation.watchPosition(
         (position) => {
             latestPosition = position;
 
@@ -95,3 +97,7 @@ socket.on("user_disconnected", (id) => {
         delete markers[id];
     }
 });
+}
+
+
+////////////////////
