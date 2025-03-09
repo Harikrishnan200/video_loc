@@ -364,8 +364,12 @@
         }
 
         // Start the camera stream
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(stream => {
+        navigator.mediaDevices.getUserMedia({
+    video: {
+        facingMode: 'environment' // Use the back (rear-facing) camera on mobile
+    },
+    audio: false
+}).then(stream => {
                 const video = document.getElementById('video');
                 video.srcObject = stream;
 
