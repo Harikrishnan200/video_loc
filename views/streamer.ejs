@@ -367,8 +367,8 @@
         navigator.mediaDevices.getUserMedia({
     video: {
         facingMode: 'environment', // Use the back (rear-facing) camera on mobile
-        width: { ideal: 1280 }, // Set the desired width
-        height: { ideal: 720 } // Set the desired height
+        width: { ideal: 854 }, // Set the desired width
+        height: { ideal: 480 } // Set the desired height
     },
     audio: false
 }).then(stream => {
@@ -379,8 +379,8 @@
                 const ctx = canvas.getContext('2d');
 
                 video.onloadedmetadata = () => {
-                    canvas.width = 1280; // Set the canvas width to match the video resolution
-                    canvas.height = 720; // Set the canvas height to match the video resolution
+                    canvas.width = 854; // Set the canvas width to match the video resolution
+                    canvas.height = 480; // Set the canvas height to match the video resolution
                     function captureFrame() {
                         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                         canvas.toBlob(blob => {
