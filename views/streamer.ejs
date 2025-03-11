@@ -391,7 +391,8 @@
                             requestAnimationFrame(captureFrame);
                         }, 'image/jpeg', 0.5); // Increase the quality of the JPEG image
                     }
-                    requestAnimationFrame(captureFrame);
+                    
+setTimeout(captureFrame, 100);
                 };
             })
             .catch(err => {
